@@ -118,7 +118,8 @@ plt.plot(
 plt.ylabel("Model Score")
 plt.xlabel("Number of Features")
 plt.title(
-    f"Feature selection using RFE \n Optimal number of features is {optimal_feature_count} at score of {round(max(fit.cv_results_['mean_test_score']),4)}")
+    f"Feature selection using RFE \n Optimal number of features is {optimal_feature_count} at score of {round(max(fit.cv_results_['mean_test_score']),4)}"
+)
 plt.show()
 
 
@@ -133,27 +134,31 @@ regressor.fit(X_train, y_train)
 # Predict on the test test
 y_pred = regressor.predict(X_test)
 
-# Calculate R-squared
+# Calculate R-squared - used to measure how well the model explains the variation around the mean for the dependent variable in a single linear regression i.e. all features included in the model will explain x% of the variation around the mean of the predicted variable
 r_squared = r2_score(y_test, y_pred)
 print(r_squared)
 
 # Cross validation
-cv = KFold(n_splits = 4, shuffle = True, random_state = 42)
-cv_scores = cross_val_score(regressor, X_train, y_train, cv = cv, scoring = "r2")
+cv = KFold(n_splits=4, shuffle=True, random_state=42)
+cv_scores = cross_val_score(regressor, X_train, y_train, cv=cv, scoring="r2")
 cv_scores.mean()
 
-# Calculate adjusted R-squared
+# Calculate adjusted R-squared - used to measure how well the model explains the variation around the mean for the dependent variable in a multiple linear regression i.e. all features included in the model will explain x% of the variation around the mean of the predicted variable
 num_data_points, num_input_vars = X_test.shape
-adjusted_r_squared = 1 - (1 - r_squared) * (num_data_points - 1) / (num_data_points - num_input_vars - 1)
+adjusted_r_squared = 1 - (1 - r_squared) * (num_data_points - 1) / (
+    num_data_points - num_input_vars - 1
+)
 print(adjusted_r_squared)
+
+# Calculate RMSE - used to assess the accuracy of a model's predictions i.e. the stability of a model
+root_mean_squared = np.sqrt(np.mean((y_test - y_pred) ** 2))
 
 
 # Extract model coefficients
 coefficients = pd.DataFrame(regressor.coef_)
 input_variable_names = pd.DataFrame(X_train.columns)
-summary_stats = pd.concat([input_variable_names, coefficients], axis = 1)
+summary_stats = pd.concat([input_variable_names, coefficients], axis=1)
 summary_stats.columns = ["input_variable", "coefficient"]
-
 
 
 # Extract Model Intercept
