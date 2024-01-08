@@ -157,4 +157,4 @@ summary_stats.columns = ["input_variable", "coefficient"]
 
 
 # Extract Model Intercept
-regressor.intercept_
+intercept = regressor.intercept_
