@@ -12,7 +12,7 @@ import pandas as pd
 
 # Import sample data
 
-my_df = pd.read_csv("Data\sample_data_regression.csv")
+my_df = pd.read_csv(r"C:\Users\irvinluc\OneDrive - Diageo\Documents\16. Data Science Infinity\data\sample_data_regression.csv")
 
 
 # Split data into input and output objects
@@ -40,3 +40,4 @@ regressor.fit(X_train, y_train)
 
 y_pred = regressor.predict(X_test)
 r2_score(y_test, y_pred)
+pd.merge()
