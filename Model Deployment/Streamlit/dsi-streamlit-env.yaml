@@ -8,5 +8,5 @@ dependencies:
   - pandas=1.4.4
   - pip=22.2.2
   - pip:
-    - streamlit==0.76.0
-    - protobuf==3.14.0
+    - streamlit==1.31
+    - protobuf==3.20
